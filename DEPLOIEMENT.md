@@ -14,22 +14,18 @@
 3. Visibilité : **Public**
 4. **Ne cochez pas** « Add a README » (vous poussez depuis votre PC).
 
-### Étape B — Pousser le code depuis votre machine (5 min)
+### Étape B — Pousser le code (1 commande)
 
-Dans PowerShell :
+Le dépôt git local est **déjà prêt** (commits faits). Il manque seulement votre connexion GitHub :
 
 ```powershell
 cd "d:\Projet\Hackathin IT"
-
-git init
-git add README.md fraud_detection.py tests data scripts .github requirements.txt pytest.ini .gitignore DEPLOIEMENT.md
-git commit -m "Hackathon INTELO2026: défi fraude + CI"
-git branch -M main
-git remote add origin https://github.com/INTELO2026/fraud-challenge.git
-git push -u origin main
+.\scripts\deploy.ps1
 ```
 
-**Important :** ne faites **pas** `git add organisateur/` sur ce dépôt public.
+Ce script : connexion `gh` (navigateur) → crée `INTELO2026/fraud-challenge` si besoin → `git push`.
+
+**Important :** `organisateur/` est dans `.gitignore` et ne part pas sur GitHub.
 
 ### Étape C — Réglages du dépôt (5 min)
 
