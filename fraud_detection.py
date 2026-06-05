@@ -290,10 +290,20 @@ def detect_fraud(transactions):
                     score += 0.15
                     reasons.append(f"Montant eleve : {amount:.2f} vs moy {m:.2f}")
                     flagged = True
-            elif prev and amount > max(prev) * 3:
-                score += 0.15
-                reasons.append(f"Montant 3x sup. au max historique ({max(prev):.2f})")
-                flagged = True
+            if not flagged and prev:
+                max_prev = max(prev)
+                if max_prev > 0:
+                    ratio = amount / max_prev
+                    if ratio >= 10:
+                        score += 0.55
+                        reasons.append(
+                            f"Montant {ratio:.0f}x superieur au max historique ({max_prev:.2f})")
+                        flagged = True
+                    elif ratio >= 3:
+                        score += 0.20
+                        reasons.append(
+                            f"Montant {ratio:.0f}x superieur au max historique ({max_prev:.2f})")
+                        flagged = True
 
             # Nouveau commerçant (signal faible)
             if (merch and merch not in hist['merchants']
